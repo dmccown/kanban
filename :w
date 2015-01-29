@@ -1,0 +1,10 @@
+<p>Hello</p>
+<ul>
+  <%= for project <- @projects do %>
+    <li>
+    <%= project.name %>
+    <a href="<%= Kanban.Router.Helpers.project_path(Endpoint, :edit, project.id) %>">Edit</a>
+    <a href="<%= Kanban.Router.Helpers.project_path(Endpoint, :destroy, project.id) %>">Delete</a>
+    </li>
+  <% end %>
+</ul>
