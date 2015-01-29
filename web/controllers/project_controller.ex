@@ -20,8 +20,16 @@ defmodule Kanban.ProjectController do
     render conn, :index, projects: Repo.all(Project)
   end
 
-  def delete(conn, _params) do
-
+  def destroy(conn, %{"id" => id}) do
+    case Repo.get(Project, id) do 
+      project when is_map(project) ->
+        Repo.delete(project)
+        conn
+        |> put_flash(:success, "#{project.id} deleted!")
+        |> render :index
+      _ ->
+        render conn, :index
+    end
   end
 
   def edit(conn, _params) do
