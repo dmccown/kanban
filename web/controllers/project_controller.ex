@@ -33,6 +33,10 @@ defmodule Kanban.ProjectController do
     end
   end
 
+  def show(conn, %{"id" => id}) do
+    render conn, :show, project: Repo.get(Project, String.to_integer(id))
+  end
+
   def edit(conn, _params) do
 
   end

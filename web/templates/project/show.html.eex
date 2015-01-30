@@ -1,6 +1,1 @@
-<p>Hello</p>
-<ul>
-  <%= for project <- @projects do %>
-    <li><%= project.name %></li>
-  <% end %>
-</ul>
+<%= @project.name %>
