@@ -2,6 +2,7 @@ defmodule Kanban.ProjectController do
   use Phoenix.Controller
   alias Kanban.Project
   alias Kanban.Repo
+  require Logger
 
   plug :action
 
@@ -21,14 +22,14 @@ defmodule Kanban.ProjectController do
   end
 
   def destroy(conn, %{"id" => id}) do
-    case Repo.get(Project, id) do 
+    case Repo.get(Project, String.to_integer(id)) do 
       project when is_map(project) ->
         Repo.delete(project)
         conn
-        |> put_flash(:success, "#{project.id} deleted!")
-        |> render :index
+        |> put_flash(:notice, "#{project.name} deleted!")
+        |> redirect to: "/"
       _ ->
-        render conn, :index
+        redirect conn, to: "/"
     end
   end
 

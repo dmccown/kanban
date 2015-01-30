@@ -1,10 +1,22 @@
 <a href="<%= project_path(@conn, :new) %>">New Project</a>
+<div class="flash_notice">
+  <div class="row">
+    <p><%= get_flash(@conn, :notice) %></p>
+  </div>
+</div>
+<div class="flash_error">
+  <div class="row">
+    <p><%= get_flash(@conn, :error) %></p>
+  </div>
+</div>
 <ul>
   <%= for project <- @projects do %>
     <li>
     <%= project.name %>
     <a href="<%= project_path(@conn, :edit, project.id) %>" class="btn btn-default">Edit</a>
     <form action="<%= project_path(@conn, :destroy, project.id) %>" method="post">
+      <input type="hidden" name="_method" value="DELETE" />
+      <input type="hidden" name="csrf_token" value="<%= csrf_token @conn %>" />
       <button type="submit" class="btn btn-danger">Delete</button>
     </form>
     </li>
